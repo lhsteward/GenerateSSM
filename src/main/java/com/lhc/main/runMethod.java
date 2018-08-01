@@ -15,11 +15,14 @@ public class runMethod {
 	public static void main(String[] args) {
 		DatabaseUtils db = new DatabaseUtils();
 		db.generateModel();//生成实体类
-		db.generateInterface();//生成dao,service,controller
-		db.generateSSMProperties();//生成配置文件
+		//db.generateInterface();//生成dao,service,controller
+		//db.generateSSMProperties();//生成配置文件
 		System.out.println("文件已生成");
 	}
 	
+	
+	
+	/*以下登录 需要的自行放到controller中 */
 	
 	
 	/**
