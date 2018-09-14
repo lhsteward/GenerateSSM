@@ -20,7 +20,7 @@ import ${servicePackage}.${tableName}Service;
 **/
 @Controller
 @RequestMapping(value="${tableNameL}")
-public class DeptController {
+public class ${tableName}Controller {
 
 	@Autowired
 	private ${tableName}Service service;
@@ -35,7 +35,7 @@ public class DeptController {
 	 */
 	@RequestMapping(value = "selectAll",method={RequestMethod.GET,RequestMethod.POST})
 	@ResponseBody
-	private List<${tableName}> selectAll(${tableName} t){
+	public List<${tableName}> selectAll(${tableName} t){
 		return service.selectAll(t);
 	}
 

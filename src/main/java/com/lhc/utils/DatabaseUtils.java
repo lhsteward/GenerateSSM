@@ -130,7 +130,7 @@ public class DatabaseUtils {
 				String comment = commentList.get(i).equals("") ? columnList.get(i) : commentList.get(i) ;
 				sBuffer +="	private "+typeList.get(i)+" "+columnList.get(i)+";  //"+comment+"\n";
 				String pString=StringUtils.toLowerCaseFirstOne(columnList.get(i));
-				str += "	public "+typeList.get(i)+" get"+StringUtils.upperCase(columnList.get(i))+"("+typeList.get(i)+" "+pString+") {\n"
+				str += "	public "+typeList.get(i)+" get"+StringUtils.upperCase(columnList.get(i))+"() {\n"
 						+"		return "+pString+";\n	}\n\n";
 				str += "	public void set"+StringUtils.upperCase(columnList.get(i))+"("+typeList.get(i)+" "+pString+") {\n"
 						+"		this."+pString+"="+pString+";\n	}\n\n";
@@ -249,6 +249,7 @@ public class DatabaseUtils {
 						try {
 							t1.process(map, out);
 							out.flush();
+							generateBaseMapper(properties.getProperty("daoPackage"));
 							generateMapper(connection,  tables.get(i), properties.getProperty("modelPackage"), properties.getProperty("daoPackage"));
 							generateService(tables.get(i), properties.getProperty("daoPackage"), properties.getProperty("modelPackage"), properties.getProperty("servicePackage"));
 							generateController(tables.get(i), properties.getProperty("servicePackage"), properties.getProperty("modelPackage"),properties.getProperty("controllerPackage"));
@@ -264,6 +265,28 @@ public class DatabaseUtils {
 			e1.printStackTrace();
 		}
 	}
+	
+	
+	protected static void generateBaseMapper(String daoPackage){
+		Map<String, Object> map = new HashMap<>();
+		InputStream is= DatabaseUtils.class.getResourceAsStream("/config.properties");
+		Properties properties = new Properties();
+		Configuration cfg = new Configuration();
+		//加载模板文件
+		cfg.setClassForTemplateLoading(DatabaseUtils.class, "/ftl");
+		try {
+			properties.load(is);
+			map.put("daoPackage", daoPackage);
+			Template t1 = cfg.getTemplate("BaseMapper.ftl");
+			Writer out = new OutputStreamWriter(generateFile(properties.getProperty("filePath")+"\\"+properties.getProperty("daoPackage").replaceAll("\\.", "\\\\"), "BaseMapper.java"));
+			t1.process(map, out);
+			out.flush();
+		} catch (IOException | TemplateException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
 	
 	
 	/**

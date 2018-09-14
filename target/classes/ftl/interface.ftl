@@ -2,6 +2,7 @@
 package ${daoPackage};
 
 import ${modelPackage}.${tableName};
+import ${daoPackage}.BaseMapper;
 
 import java.util.List;
 import org.springframework.stereotype.Repository;
@@ -13,7 +14,7 @@ import org.springframework.stereotype.Repository;
 *@author lhc
 **/
 @Repository
-public interface ${tableName}Mapper {
+public interface ${tableName}Mapper extends BaseMapper<${tableName}>{
 
 	/**
 	 * @Title: selectAll 
