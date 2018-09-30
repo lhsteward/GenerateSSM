@@ -14,7 +14,7 @@
     <!-- 添加 -->
     <insert id="insert" parameterType="${modelPackage}.${tableName}">
         INSERT INTO ${tableNameL} ( 
-	    <trim prefix="   ">
+	    <trim prefix="   " prefixOverrides=",">
 	    	<#list column as list>
 	    		<#if list_index != 0>
 					<if test="${list} != null"> , ${list}</if> 
@@ -23,7 +23,7 @@
 	 	</trim>
 	     )
         VALUES( 
-        <trim prefix="   "> 
+        <trim prefix="   " prefixOverrides=","> 
         	<#list column as list>
         		<#if list_index != 0>
 					<if test="${list} != null"> , ${r"#{"} ${list} ${r"}"}</if> 
